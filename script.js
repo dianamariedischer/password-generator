@@ -30,7 +30,8 @@ var alphabet = "abcdefghijklmnopqrstuvwxyz";
 var lowerSet = alphabet.split("");
 var upperSet = alphabet.toUpperCase().split("");
 var numericSet = "0123456789".split("");
-var specialSet = "!()?[]_`~;:!@#$%^&*+=".split("");
+//" and \
+var specialSet = "!'#$%&()*+,-./:;<=>?@[]^_`{|}~".split("");
 
 
 
