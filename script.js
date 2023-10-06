@@ -18,7 +18,7 @@ var numericCheck = numeric.checked;
 var specialCheck = special.checked;
 
 
-// Variables that checks if number is between 8-128, and set has been selected
+// Variables that check if number is between 8-128, and set has been selected
 var minRange = false;
 var maxRange = false;
 var setGuide = false;
@@ -42,25 +42,21 @@ function changeLength() {
   }
 }
 
-// Switches the value of the checkbox and if a set is selected
+// Switches the value of the checkbox
 function changeLower() {
   lowerCheck = !lowerCheck;
-  setGuide = !setGuide;
 }
 
 function changeUpper() {
   upperCheck = !upperCheck;
-  setGuide = !setGuide;
 }
 
 function changeNumeric() {
   numericCheck = !numericCheck;
-  setGuide = !setGuide;
 }
 
 function changeSpecial() {
   specialCheck = !specialCheck;
-  setGuide = !setGuide;
 }
 
 
@@ -78,6 +74,7 @@ function characterSet() {
   var charset = [];
   // Loop that checks if character was selected, and adds if true
   // Since the sets are strings, they have to be looped through to add each character to the array
+  // If a set is added, the guidelines for sets becomes true
   for (i = 0; i < 4; i++) {
     if (lowerCheck) {
       //add lower
@@ -85,24 +82,28 @@ function characterSet() {
         charset.push(lowerSet[x]);
       }
       lowerCheck = false;
+      setGuide = true;
     } else if (upperCheck) {
       //add upper
       for (x = 0; x <upperSet.length; x++) {
         charset.push(upperSet[x]);
       }
       upperCheck = false;
+      setGuide = true;
     }  else if (numericCheck) {
       //add numeric
       for (x = 0; x <numericSet.length; x++) {
         charset.push(numericSet[x]);
       }
       numericCheck = false;
+      setGuide = true;
     } else if (specialCheck) {
       //add special
       for (x = 0; x <specialSet.length; x++) {
         charset.push(specialSet[x]);
       }
       specialCheck = false;
+      setGuide = true;
     } else {}
   }
   return charset;
