@@ -77,22 +77,22 @@ function characterSet() {
   for (i = 0; i < 4; i++) {
     if (lowerCheck) {
       //add lower
-      charset.concat(lowerSet);
+      charset = charset.concat(lowerSet);
       lowerCheck = false;
       setGuide = true;
     } else if (upperCheck) {
       //add upper
-      charset.concat(upperSet);
+      charset = charset.concat(upperSet);
       upperCheck = false;
       setGuide = true;
     }  else if (numericCheck) {
       //add numeric
-      charset.concat(numericSet);
+      charset = charset.concat(numericSet);
       numericCheck = false;
       setGuide = true;
     } else if (specialCheck) {
       //add special
-      charset.concat(specialSet);
+      charset = charset.concat(specialSet);
       specialCheck = false;
       setGuide = true;
     } else {}
