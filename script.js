@@ -73,35 +73,26 @@ var specialSet = "!'#$%&()*+,-./:;<=>?@[]^_`{|}~\"\\".split("");
 function characterSet() {
   var charset = [];
   // Loop that checks if character was selected, and adds if true
-  // Since the sets are strings, they have to be looped through to add each character to the array
   // If a set is added, the guidelines for sets becomes true
   for (i = 0; i < 4; i++) {
     if (lowerCheck) {
       //add lower
-      for (x = 0; x <lowerSet.length; x++) {
-        charset.push(lowerSet[x]);
-      }
+      charset.concat(lowerSet);
       lowerCheck = false;
       setGuide = true;
     } else if (upperCheck) {
       //add upper
-      for (x = 0; x <upperSet.length; x++) {
-        charset.push(upperSet[x]);
-      }
+      charset.concat(upperSet);
       upperCheck = false;
       setGuide = true;
     }  else if (numericCheck) {
       //add numeric
-      for (x = 0; x <numericSet.length; x++) {
-        charset.push(numericSet[x]);
-      }
+      charset.concat(numericSet);
       numericCheck = false;
       setGuide = true;
     } else if (specialCheck) {
       //add special
-      for (x = 0; x <specialSet.length; x++) {
-        charset.push(specialSet[x]);
-      }
+      charset.concat(specialSet);
       specialCheck = false;
       setGuide = true;
     } else {}
