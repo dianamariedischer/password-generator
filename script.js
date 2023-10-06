@@ -120,7 +120,13 @@ function generatePassword() {
   return password.join('');
 }
 
-
+// Reset the checkboxes so the generator can run again
+function checkboxReset() {
+  lower.checked = false;
+  upper.checked = false;
+  numeric.checked = false;
+  special.checked = false;
+}
 
 // Write password to the #password input if guidelines are met
 // Length must be a number that 8-128 characters and have at least one character set selected
@@ -130,6 +136,10 @@ function writePassword() {
 
   if(setGuide && minRange && maxRange) {
     passwordText.value = password;
+
+    // Reset checkboxes
+    checkboxReset();
+
   } else {
     passwordText.value = "Please check your inputs, refresh the page, and try again."
   }
