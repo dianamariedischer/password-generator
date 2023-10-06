@@ -2,18 +2,44 @@
 var generateBtn = document.querySelector("#generate");
 
 
-  // prompt user to select password criteria
 
-  // length (8-128 characters)
-  var givenLength = 8;
+var givenLength = document.querySelector("#length");
+var lower = document.querySelector("#lower");
+var upper = document.querySelector("#upper");
+var numeric = document.querySelector("#numeric");
+var special = document.querySelector("#special");
 
-  //make sure user inputs an int
 
-  // character types (whether or not to include lowercase, uppercase, numeric, and/or special characters)
-  var lower = true;
-  var upper = true;
-  var numeric = true;
-  var special = true;
+
+// character types (whether or not to include lowercase, uppercase, numeric, and/or special characters)
+var length = givenLength.valueAsNumber;
+var lowerCheck = lower.checked;
+var upperCheck = upper.checked;
+var numericCheck = numeric.checked;
+var specialCheck = special.checked;
+
+//get number input from user length (8-128 characters)
+//TO-DO: make sure user inputs an int and its in the range
+function changeLength() {
+  length = givenLength.valueAsNumber;
+}
+
+
+function changeLower() {
+  lowerCheck = !lowerCheck;
+}
+
+function changeUpper() {
+  upperCheck = !upperCheck;
+}
+
+function changeNumeric() {
+  numericCheck = !numericCheck;
+}
+
+function changeSpecial() {
+  specialCheck = !specialCheck;
+}
 
 //user must select at least one character type
 if (lower || upper || numeric || special) {
@@ -22,9 +48,8 @@ if (lower || upper || numeric || special) {
   //tell user to select at least one
 }
 
-// character sets
-// https://stackoverflow.com/questions/24597634/how-to-generate-an-array-of-the-alphabet
 
+// character sets
 var alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 var lowerSet = alphabet.split("");
@@ -36,36 +61,35 @@ var specialSet = "!'#$%&()*+,-./:;<=>?@[]^_`{|}~".split("");
 
 
 //DEFINE
-var givenLength = 8; //length given by user
  //character set based on which characters were selected
 
 function characterSet() {
   var charset = [];
   for (i = 0; i < 4; i++) {
-    if (lower) {
+    if (lowerCheck) {
       //add lower
       for (x = 0; x <lowerSet.length; x++) {
         charset.push(lowerSet[x]);
       }
-      lower = false;
-    } else if (upper) {
+      lowerCheck = false;
+    } else if (upperCheck) {
       //add upper
       for (x = 0; x <upperSet.length; x++) {
         charset.push(upperSet[x]);
       }
-      upper = false;
-    }  else if (numeric) {
+      upperCheck = false;
+    }  else if (numericCheck) {
       //add numeric
       for (x = 0; x <numericSet.length; x++) {
         charset.push(numericSet[x]);
       }
-      numeric = false;
-    } else if (special) {
+      numericCheck = false;
+    } else if (specialCheck) {
       //add special
       for (x = 0; x <specialSet.length; x++) {
         charset.push(specialSet[x]);
       }
-      special = false;
+      specialCheck = false;
     } else {
       
     }
@@ -83,7 +107,7 @@ function generatePassword() {
   
   //generate random password that meets criteria
   //loop that makes password array one character at a time
-  for (i = 0; i < givenLength; i++) {
+  for (i = 0; i < length; i++) {
     
     
     //get a random number to get from charset
@@ -110,3 +134,8 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+lower.addEventListener("click", changeLower);
+upper.addEventListener("click", changeUpper);
+numeric.addEventListener("click", changeNumeric);
+special.addEventListener("click", changeSpecial);
+givenLength.addEventListener("change", changeLength);
