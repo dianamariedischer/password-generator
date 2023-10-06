@@ -19,7 +19,8 @@ var specialCheck = special.checked;
 
 
 // Variables that checks if number is between 8-128, and set has been selected
-var inRange = false;
+var minRange = false;
+var maxRange = false;
 var setGuide = false;
 
 
@@ -28,10 +29,16 @@ function changeLength() {
   length = givenLength.valueAsNumber;
   
   // Checks that input is in range
-  if (8 < length < 128) {
-    inRange = true; 
+  if (length >= 8) {
+    minRange = true; 
   } else {
-    inRange = false;
+    minRange = false;
+  }
+
+  if (length <= 128) {
+    maxRange = true; 
+  } else {
+    maxRange = false;
   }
 }
 
@@ -129,7 +136,7 @@ function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  if(setGuide && inRange) {
+  if(setGuide && minRange && maxRange) {
     passwordText.value = password;
   } else {
     passwordText.value = "Please check your inputs, refresh the page, and try again."
