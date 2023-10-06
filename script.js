@@ -2,7 +2,7 @@
 var generateBtn = document.querySelector("#generate");
 
 
-
+// Get variables for event listeners
 var givenLength = document.querySelector("#length");
 var lower = document.querySelector("#lower");
 var upper = document.querySelector("#upper");
@@ -10,61 +10,67 @@ var numeric = document.querySelector("#numeric");
 var special = document.querySelector("#special");
 
 
-
-// character types (whether or not to include lowercase, uppercase, numeric, and/or special characters)
+// Get inital values for code
 var length = givenLength.valueAsNumber;
 var lowerCheck = lower.checked;
 var upperCheck = upper.checked;
 var numericCheck = numeric.checked;
 var specialCheck = special.checked;
 
-//get number input from user length (8-128 characters)
-//TO-DO: make sure user inputs an int and its in the range
+
+// Variables that checks if number is between 8-128, and set has been selected
+var inRange = false;
+var setGuide = false;
+
+
+// Change values to user input
 function changeLength() {
   length = givenLength.valueAsNumber;
+  
+  // Checks that input is in range
+  if (8 < length < 128) {
+    inRange = true; 
+  } else {
+    inRange = false;
+  }
 }
 
-
+// Switches the value of the checkbox and if a set is selected
 function changeLower() {
   lowerCheck = !lowerCheck;
+  setGuide = !setGuide;
 }
 
 function changeUpper() {
   upperCheck = !upperCheck;
+  setGuide = !setGuide;
 }
 
 function changeNumeric() {
   numericCheck = !numericCheck;
+  setGuide = !setGuide;
 }
 
 function changeSpecial() {
   specialCheck = !specialCheck;
-}
-
-//user must select at least one character type
-if (lower || upper || numeric || special) {
-  //proceed
-} else {
-  //tell user to select at least one
+  setGuide = !setGuide;
 }
 
 
-// character sets
+// Character sets for user to select from
 var alphabet = "abcdefghijklmnopqrstuvwxyz";
-
 var lowerSet = alphabet.split("");
 var upperSet = alphabet.toUpperCase().split("");
 var numericSet = "0123456789".split("");
-//" and \
-var specialSet = "!'#$%&()*+,-./:;<=>?@[]^_`{|}~".split("");
+var specialSet = "!'#$%&()*+,-./:;<=>?@[]^_`{|}~\"\\".split("");
 
 
 
-//DEFINE
- //character set based on which characters were selected
-
+// Create complete character set for password based on input
 function characterSet() {
   var charset = [];
+  // Loop that checks if character was selected, and adds if true
+  // Since the sets are strings, they have to be looped through to add each character to the array
   for (i = 0; i < 4; i++) {
     if (lowerCheck) {
       //add lower
@@ -90,30 +96,23 @@ function characterSet() {
         charset.push(specialSet[x]);
       }
       specialCheck = false;
-    } else {
-      
-    }
+    } else {}
   }
-
   return charset;
 }
 
-
-
-//Generate the randomized password with selected criteria
+// Generate the randomized password with selected criteria
 function generatePassword() {
   var password = [];
   var charset = characterSet();
   
-  //generate random password that meets criteria
-  //loop that makes password array one character at a time
+  // Loop that creates password array one character at a time
   for (i = 0; i < length; i++) {
     
-    
-    //get a random number to get from charset
+    // Get a random number pull random character from array
     index = Math.floor(Math.random() * charset.length);
 
-    //add character to password array
+    // Add character to password array
     password.push(charset[index]);
 
   }
@@ -123,12 +122,18 @@ function generatePassword() {
 }
 
 
-// Write password to the #password input
+
+// Write password to the #password input if guidelines are met
+// Length must be a number that 8-128 characters and have at least one character set selected
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  if(setGuide && inRange) {
+    passwordText.value = password;
+  } else {
+    passwordText.value = "Please check your inputs, refresh the page, and try again."
+  }
 }
 
 
